@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import { Header } from "./components/Header"; // ✅ Header import
+import { LoginPage } from "./components/Auth/LoginPage"; // ✅ LoginPage import
 
 const queryClient = new QueryClient();
 
@@ -14,8 +16,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        {/* ✅ Header sabhi pages me show hoga except LoginPage */}
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Index />
+              </>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
