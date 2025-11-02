@@ -5,7 +5,6 @@
 /* -------------------------------------------------------------------------- */
 /* 🎨 DTC–DMRC DESIGN SYSTEM THEME VARIABLES (ALL COLORS IN HSL) */
 /* -------------------------------------------------------------------------- */
-
 @layer base {
   :root {
     /* Base Colors */
@@ -96,7 +95,7 @@
 /* -------------------------------------------------------------------------- */
 @layer base {
   * {
-    @apply border-[hsl(var(--border))];
+    @apply border-[hsl(var(--border))] transition-colors duration-200 ease-in-out;
   }
 
   body {
@@ -107,3 +106,28 @@
     @apply select-none;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* 📰 NEWS TICKER ANIMATION */
+/* -------------------------------------------------------------------------- */
+
+/* Infinite right-to-left scrolling animation */
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Apply animation */
+.animate-slide-left {
+  animation: slide-left 40s linear infinite;
+}
+
+/* Pause on hover for better UX */
+.animate-slide-left:hover {
+  animation-play-state: paused;
+}
+

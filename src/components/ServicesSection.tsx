@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Bus, Train, CreditCard, Smartphone, MapPin, Clock, Info } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const ServicesSection = () => {
+  const [activeTab, setActiveTab] = useState("dtc");
+
   const dtcServices = [
     {
       icon: Bus,
@@ -49,8 +52,12 @@ export const ServicesSection = () => {
     },
   ];
 
+  // Dynamic theme colors
+  const themeColor = activeTab === "dtc" ? "text-blue-600" : "text-red-600";
+  const bgTheme = activeTab === "dtc" ? "bg-blue-100" : "bg-red-100";
+
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-background transition-all">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -61,48 +68,66 @@ export const ServicesSection = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="dtc" className="w-full">
+        <Tabs defaultValue="dtc" className="w-full" onValueChange={setActiveTab}>
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-            <TabsTrigger value="dtc" className="flex items-center gap-2">
+            <TabsTrigger
+              value="dtc"
+              className={`flex items-center gap-2 data-[state=active]:bg-blue-500 data-[state=active]:text-white`}
+            >
               <Bus className="h-4 w-4" />
               DTC Buses
             </TabsTrigger>
-            <TabsTrigger value="metro" className="flex items-center gap-2">
+            <TabsTrigger
+              value="metro"
+              className={`flex items-center gap-2 data-[state=active]:bg-red-500 data-[state=active]:text-white`}
+            >
               <Train className="h-4 w-4" />
               Delhi Metro
             </TabsTrigger>
           </TabsList>
 
+          {/* DTC Section */}
           <TabsContent value="dtc" className="animate-fade-in">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {dtcServices.map((service, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-all hover:-translate-y-1"
+                >
                   <CardHeader>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <service.icon className="h-6 w-6 text-primary" />
+                    <div className={`w-12 h-12 ${bgTheme} rounded-lg flex items-center justify-center mb-4`}>
+                      <service.icon className={`h-6 w-6 ${themeColor}`} />
                     </div>
                     <CardTitle className="text-lg">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-sm">{service.description}</CardDescription>
+                    <CardDescription className="text-sm">
+                      {service.description}
+                    </CardDescription>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </TabsContent>
 
+          {/* Metro Section */}
           <TabsContent value="metro" className="animate-fade-in">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {metroServices.map((service, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all hover:-translate-y-1">
+                <Card
+                  key={index}
+                  className="hover:shadow-lg transition-all hover:-translate-y-1"
+                >
                   <CardHeader>
-                    <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                      <service.icon className="h-6 w-6 text-accent" />
+                    <div className={`w-12 h-12 ${bgTheme} rounded-lg flex items-center justify-center mb-4`}>
+                      <service.icon className={`h-6 w-6 ${themeColor}`} />
                     </div>
                     <CardTitle className="text-lg">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-sm">{service.description}</CardDescription>
+                    <CardDescription className="text-sm">
+                      {service.description}
+                    </CardDescription>
                   </CardContent>
                 </Card>
               ))}

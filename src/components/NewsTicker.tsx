@@ -9,6 +9,9 @@ export const NewsTicker = () => {
     "New integrated ticket system for Bus & Metro coming soon",
   ];
 
+  // 💡 Note: Custom CSS @keyframes rule MUST be defined in your index.css/globals.css
+  // @keyframes slide-left-rtl { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+  
   return (
     <div className="bg-secondary text-secondary-foreground py-3 overflow-hidden">
       <div className="container mx-auto px-4">
@@ -18,7 +21,11 @@ export const NewsTicker = () => {
             <span className="text-sm uppercase">Latest Updates</span>
           </div>
           <div className="flex-1 overflow-hidden">
-            <div className="flex gap-8 animate-slide-left whitespace-nowrap">
+            <div 
+              className="flex gap-8 animate-slide-left whitespace-nowrap"
+              // ✅ FIX: Inline style used for animation duration (speed)
+              style={{ animation: 'slide-left 40s linear infinite' }} 
+            >
               {[...news, ...news].map((item, index) => (
                 <span key={index} className="text-sm font-medium">
                   • {item}
