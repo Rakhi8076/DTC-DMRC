@@ -31,47 +31,51 @@ export const Header = () => {
     >
       {/* Top Section */}
       <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-red-900">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          {/* Logo + Title */}
-          <Link to="/" className="flex items-center gap-4">
-            <img src={dtcLogo} alt="DTC Logo" className="h-14 w-14 rounded-lg shadow-md" />
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold text-white">
-                Delhi Integrated Transport
-              </h1>
-              <p className="text-sm text-gray-200">
-                DTC × DMRC | Government of NCT of Delhi
-              </p>
-            </div>
-          </Link>
-
-          {/* Right Section */}
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate("/login")}
-              className="text-white border border-white/20 hover:bg-white/10 hidden md:flex items-center"
-            >
-              <User className="h-4 w-4 mr-2" />
-              Login
-            </Button>
-
-            <select className="bg-transparent border border-white/30 text-white text-sm px-2 py-1 rounded hidden md:block">
-              <option>English</option>
-              <option>हिंदी</option>
-            </select>
-
-            {/* Mobile Toggle */}
-            <button
-              className="md:hidden text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-        </div>
+  <div className="w-full px-0 py-4 flex items-center justify-between">
+    {/* Logo + Title */}
+    <div className="flex items-center justify-start space-x-4 pl-4">
+      <img
+        src={dtcLogo}
+        alt="DTC Logo"
+        className="h-14 w-14 rounded-lg shadow-md"
+      />
+      <div className="text-left leading-tight">
+        <h1 className="text-xl md:text-2xl font-bold text-white">
+          Delhi Integrated Transport
+        </h1>
+        <p className="text-sm text-gray-200">
+          DTC × DMRC | Government of NCT of Delhi
+        </p>
       </div>
+    </div>
+
+    {/* Right Section */}
+    <div className="flex items-center gap-4 pr-4">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => navigate("/login")}
+        className="text-white border border-white/20 hover:bg-white/10 hidden md:flex items-center"
+      >
+        <User className="h-4 w-4 mr-2" />
+        Login
+      </Button>
+
+      <select className="bg-transparent border border-white/30 text-white text-sm px-2 py-1 rounded hidden md:block">
+        <option>English</option>
+        <option>हिंदी</option>
+      </select>
+
+      {/* Mobile Toggle */}
+      <button
+        className="md:hidden text-white"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+      </button>
+    </div>
+  </div>
+</div>
 
       {/* Nav Section */}
       <nav
@@ -79,7 +83,7 @@ export const Header = () => {
           mobileMenuOpen ? "block" : "hidden md:block"
         }`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 mr-0">
           <ul className="flex flex-col md:flex-row md:items-center md:justify-end">
             {navItems.map((item) => (
               <li key={item} className="relative group">
