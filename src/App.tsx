@@ -5,8 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { Header } from "./components/Header"; // ✅ Header import
-import { LoginPage } from "./components/Auth/LoginPage"; // ✅ LoginPage import
+import { Header } from "./components/Header";
+import LoginPage from "./components/Auth/LoginPage";
+import { AuthProvider } from "./context/AuthContext"; // Import is correct
 
 const queryClient = new QueryClient();
 
@@ -15,23 +16,31 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        {/* ✅ Header sabhi pages me show hoga except LoginPage */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <Index />
-              </>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      
+      {/* 🛑 FIX APPLIED HERE: AuthProvider wraps BrowserRouter */}
+      <AuthProvider> 
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Header />
+                  <Index />
+                </>
+              }
+            />
+            
+            {/* Login Route */}
+            <Route path="/login" element={<LoginPage />} /> 
+            
+            <Route path="*" element={<NotFound />} />
+            
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+      {/* ----------------------------------------------------- */}
+      
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,13 +1,25 @@
 import { Menu, X, Accessibility, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// ✅ CHANGE 1: Import 'Link' from react-router-dom
+import { useNavigate, Link } from "react-router-dom"; 
 import dtcLogo from "@/assets/dtc-logo.png";
 import govtEmblem from "@/assets/govt-emblem.png";
 
+
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate(); // 👈 Navigation hook
+  const navigate = useNavigate();
+
+  // Helper function to generate URL path from item name
+  const getPath = (item) => {
+      // Home ke liye root path '/'
+      if (item === "Home") return "/";
+      // Baki items ke liye slug-style path (e.g., "About Us" -> "/about-us")
+      return `/${item.toLowerCase().replace(/\s/g, "-")}`;
+  };
+
+  const navItems = ["Home", "About Us", "Services", "Routes", "Fares", "Notice Board", "Contact Us"];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-primary shadow-lg">
@@ -23,11 +35,11 @@ export const Header = () => {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            {/* ✅ Corrected Login Button */}
+            {/* Login Button uses useNavigate */}
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate("/login")} // ✅ Route to /login
+              onClick={() => navigate("/login")} 
               className="text-primary-foreground hover:bg-primary-foreground/10"
             >
               <User className="h-4 w-4 mr-2" />
@@ -45,8 +57,9 @@ export const Header = () => {
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo and Title */}
-          <div className="flex items-center gap-4">
+          {/* Logo and Title - Logo should also link to Home */}
+          {/* Logo ko Link se wrap kar diya, 'to' prop mein Home ka path '/' */}
+          <Link to="/" className="flex items-center gap-4"> 
             <img src={dtcLogo} alt="DTC Logo" className="h-16 w-16" />
             <div>
               <h1 className="text-xl md:text-2xl font-bold text-primary-foreground">
@@ -56,7 +69,7 @@ export const Header = () => {
                 DTC & DMRC | Government of NCT of Delhi
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Right side logos */}
           <div className="hidden md:flex items-center gap-4">
@@ -81,18 +94,17 @@ export const Header = () => {
       >
         <div className="container mx-auto px-4">
           <ul className="flex flex-col md:flex-row md:items-center md:gap-1">
-            {["Home", "About Us", "Services", "Routes", "Fares", "Notice Board", "Contact Us"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="block px-4 py-3 text-sm text-primary-foreground hover:bg-secondary hover:text-secondary-foreground transition-colors"
-                  >
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
+            {navItems.map((item) => (
+              <li key={item}>
+                {/* ✅ CHANGE 2: Replace <a> with <Link> */}
+                <Link 
+                  to={getPath(item)}
+                  className="block px-4 py-3 text-sm text-primary-foreground hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>
