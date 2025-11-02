@@ -19,7 +19,7 @@ const App = () => (
       
       {/* 🛑 FIX APPLIED HERE: AuthProvider wraps BrowserRouter */}
       <AuthProvider> 
-        <BrowserRouter>
+        <BrowserRouter basename="/DTC-DMRC">
           <Routes>
             <Route
               path="/"
